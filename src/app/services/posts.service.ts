@@ -8,6 +8,7 @@ import { Post } from '../models/posts-model';
 })
 export class PostsService {
   fetchedPosts = new Subject<Post[]>();
+  categoryPosts = new Subject<Post[]>();
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +19,17 @@ export class PostsService {
       )
       .subscribe((posts: Post[]) => {
         this.fetchedPosts.next(posts);
+      });
+  }
+
+  getPostsByCategory(id: string | null): void {
+    console.log(id, 'ID');
+    this.http
+      .get<Post[]>(
+        `https://chrisphilbin.net/wp-json/wp/v2/posts?categories=${id}`
+      )
+      .subscribe((posts) => {
+        this.categoryPosts.next(posts);
       });
   }
 }
