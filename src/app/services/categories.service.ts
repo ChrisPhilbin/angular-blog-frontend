@@ -11,7 +11,7 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) {}
 
-  getCategories() {
+  getCategories(): void {
     this.http
       .get<Category[]>('https://chrisphilbin.net/wp-json/wp/v2/categories')
       .subscribe((categories: Category[]) => {

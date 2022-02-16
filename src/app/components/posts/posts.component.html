@@ -1,4 +1,4 @@
-<div class="border-1 rounded-lg bg-gray-100 m-8 p-10 w-8/12" *ngFor="let post of fetchedPosts">
+<div class="border-1 rounded-lg bg-gray-100 shadow-lg m-8 p-10" *ngFor="let post of fetchedPosts">
     <p class="text-2xl font-bold">{{post.title.rendered}}</p><br />
-    <span [innerHTML]="post.content.rendered"></span>
+    <span class="post-container" [innerHTML]="post.content.rendered"></span>
 </div>

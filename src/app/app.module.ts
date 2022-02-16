@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     PostsComponent,
     CategoriesComponent,
     LoadingComponent,
+    SidebarComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
