@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Category } from 'src/app/models/categories-model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
@@ -8,18 +9,28 @@ import { CategoriesService } from 'src/app/services/categories.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   categoriesSubscription = new Subscription();
   categories: Category[] = [];
+  isAuthenticated = false;
+  userSubscription = new Subscription();
 
-  constructor(private categoriesService: CategoriesService) {}
+  constructor(private categoriesService: CategoriesService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.categoriesService.getCategories();
     this.categoriesSubscription =
       this.categoriesService.fetchedCategories.subscribe((categories) => {
         this.categories = categories;
-        console.log(categories);
       });
+
+    this.userSubscription = this.authService.user.subscribe((user) => {
+      this.isAuthenticated = !user ? false : true;
+    })
+  }
+
+  ngOnDestroy(): void {
+      this.categoriesSubscription.unsubscribe();
+      this.userSubscription.unsubscribe();
   }
 }

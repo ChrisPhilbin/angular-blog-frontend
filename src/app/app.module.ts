@@ -9,6 +9,8 @@ import { PostsComponent } from './components/posts/posts.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AuthComponent } from './components/auth/auth.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     CategoriesComponent,
     LoadingComponent,
     SidebarComponent,
+    AuthComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
