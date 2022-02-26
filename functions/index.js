@@ -1,6 +1,15 @@
 const functions = require("firebase-functions");
 const app = require("express")();
 const auth = require("./util/auth");
+const cors = require("cors");
+
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 const {
   createOnePost,
