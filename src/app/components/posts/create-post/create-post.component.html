@@ -1,0 +1,13 @@
+<form [formGroup]="postForm" (ngSubmit)="onPostSubmit()">
+    <label for="postTitle">Post Title</label>
+    <input type="text" id="title" formControlName="title" #title>
+
+    <label for="postCategory">Post Category</label>
+    <input type="text" id="category" formControlName="category" #category>
+
+    <label for="postBody">Post Body</label>
+    <textarea id="body" formControlName="body" #body></textarea>
+
+    <button type="submit">Submit</button>
+
+</form>

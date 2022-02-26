@@ -19,6 +19,11 @@ export class AuthComponent implements OnInit {
   error: string = "";
 
   ngOnInit(): void {
+    // console.log(this.authError)
+    // this.authService.errorMessage.subscribe((error) => {
+    //   this.authError = error
+    //   console.log(this.authError, "auth error")
+    // })
   }
 
   onSwitchMode() {
@@ -49,6 +54,9 @@ export class AuthComponent implements OnInit {
 
     authObs.subscribe((response) => {
       this.isLoading = false;
+      this.authService.user.subscribe((user) => {
+        console.log(user)
+      })
       this.router.navigate(['/']);
     }, (errorMessage) => {
       this.error = errorMessage

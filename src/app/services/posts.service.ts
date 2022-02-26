@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../models/posts-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { Post } from '../models/posts-model';
 export class PostsService {
   fetchedPosts = new Subject<Post[]>();
   categoryPosts = new Subject<Post[]>();
+  singlePost = new Subject<Post>();
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +24,13 @@ export class PostsService {
       });
   }
 
+  getSinglePost(postId: number): void {
+    this.http.get<Post>(`${environment.apiUrl}/posts/${postId}`)
+    .subscribe((post: Post) => {
+      this.singlePost.next(post)
+    })
+  }
+
   getPostsByCategory(id: string | null): void {
     console.log(id, 'ID');
     this.http
@@ -31,5 +40,15 @@ export class PostsService {
       .subscribe((posts) => {
         this.categoryPosts.next(posts);
       });
+  }
+
+  createNewPost(post: Post): void {
+    this.http.post(`${environment.apiUrl}/posts`, {
+      body: post.body,
+      title: post.title,
+      category: post.category,
+    }).subscribe((response) => {
+      console.log(response, "response from create")
+    })
   }
 }
