@@ -1,13 +1,32 @@
 <form [formGroup]="postForm" (ngSubmit)="onPostSubmit()">
-    <label for="postTitle">Post Title</label>
-    <input type="text" id="title" formControlName="title" #title>
+    <div class="grid grid-cols-1 w-5/6 ml-6">
+            <div class="m-4">
+                <label for="postTitle">Post Title</label><br />
+                <input type="text" id="title" formControlName="title" #title class="rounded-md mt-2 w-3/6"><br />
+                <span *ngIf="!postFormControl['title'].valid && postFormControl['title'].touched" class="text-xs text-red-600">Post title is required</span>
+            </div>
 
-    <label for="postCategory">Post Category</label>
-    <input type="text" id="category" formControlName="category" #category>
+            <div class="m-4">
+                <label for="postCategory">Post Category</label><br />
+                <select name="category" formControlName="category" #category class="rounded-md mt-2">
+                    <option>-- SELECT --</option>
+                    <option *ngFor="let category of firebaseCategories" [value]="category.name">{{ category.name }}</option>
+                </select>
+                <p-button (click)="toggleCreateCategory()" icon="pi pi-external-link" label="New Category" class="ml-2 rounded-md"></p-button>
+            </div>
 
-    <label for="postBody">Post Body</label>
-    <textarea id="body" formControlName="body" #body></textarea>
+            <div class="m-4">
+                <label for="postBody">Post Body</label><br />
+                <angular-editor formControlName="body" [config]="editorConfig"></angular-editor>
+                <!-- <textarea id="body" formControlName="body" rows="16" #body class="rounded-md mt-2 w-full"></textarea><br /> -->
+                <span *ngIf="!postFormControl['body'].valid && postFormControl['body'].touched" class="text-xs text-red-600">Post body is required</span>
+            </div>
 
-    <button type="submit">Submit</button>
-
+            <span class="text-right mr-3">
+                <p-button *ngIf="!editMode" type="submit" [disabled]="!postForm.valid" [ngClass]="postForm.valid ? '' : 'cursor-not-allowed'" icon="pi pi-pencil" label="Create Post" class="ml-2 rounded-md float-right"></p-button>
+                <p-button *ngIf="editMode" type="submit" [disabled]="!postForm.valid" [ngClass]="postForm.valid ? '' : 'cursor-not-allowed'" icon="pi pi-pencil" label="Update Post" class="ml-2 rounded-md float-right"></p-button>
+            </span>
+            <!-- <button type="submit" [disabled]="!postForm.valid" [ngClass]="postForm.valid ? '' : 'cursor-not-allowed'" class="mr-6 float-right text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Submit</button> -->
+    </div>
 </form>
+<app-create-category></app-create-category>

@@ -1,4 +1,9 @@
 <div class="border-1 rounded-lg bg-gray-100 shadow-lg m-8 p-10" *ngFor="let post of fetchedPosts">
-    <p class="text-2xl font-bold">{{post.title.rendered}}</p><br />
-    <span class="post-container" [innerHTML]="post.content.rendered"></span>
+    <p class="inline text-2xl font-bold">{{ post.title }}</p>
+    <span *ngIf="isLoggedIn">
+        <button (click)="handleEditPost(post.postId)" class="inline ml-3 bg-red-600 text-white text-sm p-1 rounded">Edit</button>
+        <button (click)="handleDeletePost(post.postId)" class="inline ml-3 bg-red-600 text-white text-sm p-1 rounded">Delete</button>
+    </span>
+    <p class="italic">Posted in: <strong>{{ post.category }}</strong> on {{ post.createdAt | date:'fullDate' }} </p><br />
+    <span class="post-container" [innerHTML]="post.body"></span>
 </div>

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiUrl: "https://us-central1-ng-blog-574e0.cloudfunctions.net/api",
-  apiUrl: "http://localhost:5001/ng-blog-574e0/us-central1/api",
+  apiUrl: "https://us-central1-ng-blog-574e0.cloudfunctions.net/api",
+  // apiUrl: "http://localhost:5001/ng-blog-574e0/us-central1/api",
 };
 
 /*

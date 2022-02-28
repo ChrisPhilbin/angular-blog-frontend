@@ -1,0 +1,5 @@
+<p-dialog header="Create a new Category" [(visible)]="showNewCategoryModal" [modal]="true">
+    <input type="text" [(ngModel)]="newCategory" name="categoryName" id="categoryName" #categoryName placeholder="Category name...">
+    <button type="button" (click)="createCategory()" class="bg-white text-gray-700 p-2 m-2" [disabled]="!newCategory" [ngClass]="newCategory ? '' : 'cursor-not-allowed'">Create</button><br />
+    <p-button (click)="handleClose()" label="Cancel" styleClass="p-button-text"></p-button>
+</p-dialog>

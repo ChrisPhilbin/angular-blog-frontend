@@ -21,10 +21,10 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.categoryId = params['id'];
+      this.categoryId = params['id'] as string;
       this.isLoading = true;
-      this.postsService.getPostsByCategory(this.categoryId);
-      this.postsService.categoryPosts.subscribe((posts) => {
+      this.postsService.getFirebasePostsByCategory(this.categoryId);
+      this.postsService.firebasePosts.subscribe((posts) => {
         this.categoryPosts = posts;
         this.isLoading = false;
       });

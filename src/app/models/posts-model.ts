@@ -1,7 +1,8 @@
 export interface Post {
   body?: string;
   category?: string;
-  id?: number;
+  id: string;
+  postId: string;
   date?: string;
   link?: string;
   title: {
@@ -13,6 +14,7 @@ export interface Post {
   excerpt: {
     rendered?: string;
   };
+  createdAt: string;
 }
 
 // export interface Post {

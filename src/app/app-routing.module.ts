@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: '', component: PostsComponent },
   { path: 'signin', component: AuthComponent },
   { path: 'category/:id', component: CategoriesComponent },
-  { path: 'posts/new', component: CreatePostComponent }
+  { path: 'posts/new', component: CreatePostComponent },
+  { path: 'posts/:postId/edit', component: CreatePostComponent }
 ];
 
 @NgModule({

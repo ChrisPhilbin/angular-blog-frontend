@@ -11,6 +11,7 @@ export class PostsService {
   fetchedPosts = new Subject<Post[]>();
   categoryPosts = new Subject<Post[]>();
   singlePost = new Subject<Post>();
+  firebasePosts = new Subject<Post[]>();
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +25,7 @@ export class PostsService {
       });
   }
 
-  getSinglePost(postId: number): void {
+  getSinglePost(postId: string): void {
     this.http.get<Post>(`${environment.apiUrl}/posts/${postId}`)
     .subscribe((post: Post) => {
       this.singlePost.next(post)
@@ -49,6 +50,39 @@ export class PostsService {
       category: post.category,
     }).subscribe((response) => {
       console.log(response, "response from create")
+    })
+  }
+
+  getFirebasePosts(): void {
+    this.http.get<Post[]>(`${environment.apiUrl}/posts`).subscribe((posts: Post[]) => {
+      this.firebasePosts.next(posts);
+    })
+  }
+
+  //@ts-ignore
+  updateFirebasePost(postId: string, newPost): void {
+    this.http.put<Post>(`${environment.apiUrl}/posts/${postId}`, {
+      title: newPost.title,
+      body: newPost.body,
+      category: newPost.category,
+    }).subscribe((updatedPost) => {
+      console.log(updatedPost, "updated post")
+    })
+  }
+
+  deleteFirebasePost(postId: string): void {
+    this.http.delete(`${environment.apiUrl}/posts/${postId}`, {
+      body: {
+        postId: postId
+      }
+    }).subscribe((res) => {
+      this.getFirebasePosts();
+    })
+  }
+
+  getFirebasePostsByCategory(categoryName: string): void {
+    this.http.get<Post[]>(`${environment.apiUrl}/categories/${categoryName}`).subscribe((posts) => {
+      this.firebasePosts.next(posts);
     })
   }
 }
